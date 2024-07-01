@@ -21,10 +21,10 @@ class ChatPage extends ConsumerStatefulWidget {
   const ChatPage({super.key, required this.conversationId, required this.conversationName, required this.firstCamera, required this.imageLabeler});
 
   @override
-  ChatPageState createState() => ChatPageState();
+  ConsumerState<ChatPage> createState() => _ChatPageState();
 }
 
-class ChatPageState extends ConsumerState<ChatPage> {
+class _ChatPageState extends ConsumerState<ChatPage> {
   final TextEditingController controller = TextEditingController();
   final ChatService _chatService = ChatService();
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;

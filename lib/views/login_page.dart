@@ -9,10 +9,10 @@ class LoginPage extends ConsumerStatefulWidget{
   const LoginPage({super.key, this.onTap});
 
   @override
-  LoginPageState createState()=> LoginPageState();
+  ConsumerState<LoginPage> createState()=> _LoginPageState();
 }
 
-class LoginPageState extends ConsumerState<LoginPage>{
+class _LoginPageState extends ConsumerState<LoginPage>{
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 

@@ -12,10 +12,10 @@ class RegisterPage extends ConsumerStatefulWidget{
   const RegisterPage({super.key, this.onTap});
 
   @override
-  RegisterPageState createState()=> RegisterPageState();
+  ConsumerState<RegisterPage> createState()=> _RegisterPageState();
 }
 
-class RegisterPageState extends ConsumerState<RegisterPage>{
+class _RegisterPageState extends ConsumerState<RegisterPage>{
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();

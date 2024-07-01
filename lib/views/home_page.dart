@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_mlkit_image_labeling/google_mlkit_image_labeling.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:langchain_app/services/auth/auth_service.dart';
 import 'package:langchain_app/services/chat/chat_service.dart';
 import 'package:langchain_app/views/chat_page.dart';
@@ -13,16 +14,16 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
-import 'package:provider/provider.dart';
 
-class HomePage extends StatefulWidget{
+
+class HomePage extends ConsumerStatefulWidget{
   const HomePage({super.key});
 
   @override
-  State<HomePage> createState()=> _HomePageState();
+  ConsumerState<HomePage> createState()=> _HomePageState();
 }
 
-class _HomePageState extends State<HomePage>{
+class _HomePageState extends ConsumerState<HomePage>{
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   late TextEditingController controller;
   final ChatService _chatService = ChatService();
@@ -73,7 +74,6 @@ class _HomePageState extends State<HomePage>{
       appBar: AppBar(
         title: const Text('Home Page'),
         actions: [
-          IconButton(onPressed: signOut, icon: const Icon(Icons.logout)),
           IconButton(icon: const Icon(Icons.add),
             onPressed: () async{
               final name = await openDialog();
@@ -81,6 +81,7 @@ class _HomePageState extends State<HomePage>{
               _chatService.createChat(name.toString());
             },
           ),
+          IconButton(onPressed: signOut, icon: const Icon(Icons.logout)),
         ],
       ),
       body: _buildUserList(),
@@ -118,8 +119,8 @@ class _HomePageState extends State<HomePage>{
   }
 
   void signOut() {
-    final authService = Provider.of<AuthService>(context, listen: false);
-    authService.signOut();
+    //final authService = Provider.of<AuthService>(context, listen: false);
+    ref.read(authServiceProvider).signOut();
   }
 
   Widget _buildUserList(){
